@@ -1,13 +1,13 @@
 //用户注册的路由组件
 import React, {Component} from 'react';
+import {Redirect} from 'react-router-dom';
 //引入按钮组件 WingBlank两翼留白WhiteSpace空白符空白格
 
 import PropTypes from 'prop-types';
 import {NavBar, WingBlank, WhiteSpace, List, InputItem, Radio, Button} from 'antd-mobile';
-
 //引入logo
 import Logo from '../logo';
-import './index.less';
+;
 const Item = List.Item;
 
 class Register extends Component {
@@ -61,8 +61,11 @@ class Register extends Component {
     }
         render(){
             const {laoban} = this.state
-            //
-            const {errMsg} = this.props.user;
+            //登陆
+            const {errMsg,redirectTo} = this.props.user;
+            if (redirectTo){
+                return <Redirect to={redirectTo} />
+            }
             return (
                 <div>
                     <NavBar>硅谷直聘</NavBar>

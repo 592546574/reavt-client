@@ -8,12 +8,13 @@ const initUserState ={
    username : '',
     type:'',
     _id:'',
-    errMsg:''
+    errMsg:'',
+    redirectTo:''
 };
 function user(previousState = initUserState,action){
     switch (action.type) {
         case AUTH_SUCCESS:
-            return action.data
+            return {...action.data,redirectTo: getRedirectPath(action.data.type,action.data.headers)}
         case AUTH_ERROR:
             return {...initUserState,...action.data}
         default:
@@ -21,6 +22,18 @@ function user(previousState = initUserState,action){
     }
 }
 
+function getRedirectPath(type,header) {
+    let path = '';
+    if (type === 'laoban'){
+        path = '/laoban';
+    } else {
+        path = '/dashen';
+    }
+    if (!header){
+        path += 'info';
+    }
+    return path;
+}
 //初始化状态的值
 // const initYyyState = 0;
 // function yyy(previousState = initYyyState,action){
