@@ -2,7 +2,7 @@
 import React, {Component} from 'react';
 import { NavBar, WingBlank, WhiteSpace,List,InputItem,Button} from 'antd-mobile';
 import Logo from '../logo';
-const Item = List.Item;
+
 class Login extends Component {
     state = {
         username:'',
