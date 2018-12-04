@@ -4,3 +4,5 @@ import ajax from './ajax';
 const prefix = '';
 //定义注册的请求
 export const reqRegister = data =>ajax(`${prefix}/register`,data,`POST`)
+//定义登陆的请求
+export const reqLogin = data => ajax(`${prefix}/login`,data,`POST`)

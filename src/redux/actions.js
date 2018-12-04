@@ -8,7 +8,7 @@
  */
 
 
-import {reqRegister} from "../api";
+import {reqRegister,reqLogin} from "../api";
 //引入
 import {AUTH_SUCCESS,AUTH_ERROR} from "./action-types";
 //定义同步action creator
@@ -42,4 +42,30 @@ export const register = ({username,password,rePassword,type}) =>{
                 dispatch(authError({errMsg:'网络不稳定请刷新重试'}))
             })
     }
+}
+
+//登陆功能
+export const login = ({username,password}) =>{
+   //表单验证
+   if (!username)  {
+       return authError({errMsg:'请输入用户名'})
+   }else if (!password){
+       return authError({errMsg:'请输入密码'});
+   }
+   return dispatch =>{
+       //发送请求
+       reqLogin({username,password})
+           .then(({data})=>{
+               if (data.code === 0){
+                   //登陆成功
+                   dispatch(authSuccess(data.data));
+               } else {
+                   //登陆失败
+                   dispatch(authError({errMsg:data.msg}))
+               }
+           })
+           .catch(err =>{
+               dispatch(authError({errMsg:'网络错误请刷新试试'}));
+           })
+   }
 }
