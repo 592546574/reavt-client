@@ -7,15 +7,23 @@
       返回值是函数 dispatch => {xxx}
  */
 
-//定义异步action creator
+
 import {reqRegister} from "../api";
 //引入
 import {AUTH_SUCCESS,AUTH_ERROR} from "./action-types";
 //定义同步action creator
 export const authSuccess = data =>({type:AUTH_SUCCESS,data});
 export const authError = data =>({type:AUTH_ERROR,data});
-
+//定义异步action creator
 export const register = ({username,password,rePassword,type}) =>{
+    //表单验证
+    if (!username){
+        return authError({errMsg:'用户名不能为空'});
+    }else if (!password){
+        return authError({errMsg:'密码不能为空，请输入密码'});
+    }else if (password !== rePassword) {
+        return authError({errMsg:'两次密码输入不一致'});
+    }
     return dispatch=>{
         //异步任务发送ajax请求
         reqRegister ({username,password,type})
