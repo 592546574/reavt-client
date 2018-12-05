@@ -72,18 +72,18 @@ export const login = ({username,password}) =>{
 }
 
 //更新用户消息
-export const update = ({header,post,company,salary,info}) =>{
+export const update = ({header,post,company,salary,info,type}) =>{
     //表单验证
     if (!header){
         return authError({errMsg:'请选择头像'})
     } else if (!post){
-        return authError({errMsg:'请填写招聘职位'})
-    } else if (!company) {
+        return authError({errMsg:type === 'laoban' ? '请填写招聘职位' : '请填写求职岗位'})
+    } else if (type === 'laoban' && !company) {
         return authError({errMsg:'请填写公司名称'})
-    }else if (!salary){
+    }else if (type === 'laoban' && !salary){
         return authError({errMsg:'请填写职位薪资'})
     } else if (!info){
-        return authError({errMsg:'请填写职位要求'})
+        return authError({errMsg:type === 'laoban' ? '请填写职位要求' : '请填写个人简介'})
     }
     return dispatch =>{
         reqUpdate({header,post,company,salary,info})
