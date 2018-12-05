@@ -50,7 +50,7 @@ class Login extends Component {
                  <WhiteSpace/>
                  <InputItem onChange={val => this.handleChange('password',val)} type="password">密码</InputItem>
                  <WhiteSpace/>
-                 <Button type="primary" onClick={this.main}>登陆</Button>
+                 <Button type="primary" onClick={this.login}>登陆</Button>
                  <Button onClick={this.toRegister}>还没有账户</Button>
              </List>
          </WingBlank>

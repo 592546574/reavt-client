@@ -46,6 +46,7 @@ export const register = ({username,password,rePassword,type}) =>{
 
 //登陆功能
 export const login = ({username,password}) =>{
+    console.log(username, password );
    //表单验证
    if (!username)  {
        return authError({errMsg:'请输入用户名'})

@@ -14,6 +14,7 @@ const initUserState ={
 function user(previousState = initUserState,action){
     switch (action.type) {
         case AUTH_SUCCESS:
+            //重定向
             return {...action.data,redirectTo: getRedirectPath(action.data.type,action.data.headers)}
         case AUTH_ERROR:
             return {...initUserState,...action.data}

@@ -2,7 +2,6 @@
 import React, {Component} from 'react';
 import {Redirect} from 'react-router-dom';
 //引入按钮组件 WingBlank两翼留白WhiteSpace空白符空白格
-
 import PropTypes from 'prop-types';
 import {NavBar, WingBlank, WhiteSpace, List, InputItem, Radio, Button} from 'antd-mobile';
 //引入logo
