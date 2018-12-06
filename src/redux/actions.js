@@ -8,12 +8,15 @@
  */
 
 
-import {reqRegister,reqLogin,reqUpdate} from "../api";
+import {reqRegister,reqLogin,reqUpdate,reqGetUserInfo} from "../api";
 //引入
-import {AUTH_SUCCESS,AUTH_ERROR} from "./action-types";
+import {AUTH_SUCCESS,AUTH_ERROR,UPDATE_USER_INFO,RESET_USER_INFO} from "./action-types";
 //定义同步action creator
 export const authSuccess = data =>({type:AUTH_SUCCESS,data});
 export const authError = data =>({type:AUTH_ERROR,data});
+//定义获取用户消息
+export const updateUserInfo = data =>({type:UPDATE_USER_INFO,data});
+export const resetUserInfo = data =>({type:RESET_USER_INFO,data});
 //定义异步action creator
 export const register = ({username,password,rePassword,type}) =>{
     //表单验证
@@ -97,6 +100,24 @@ export const update = ({header,post,company,salary,info,type}) =>{
             })
             .catch(err =>{
                 dispatch(authError({errMsg:'网络不稳定,请刷新重试'}))
+            })
+    }
+}
+
+//获取用户消息的请求
+export const getUserInfo = () =>{
+    return dispatch =>{
+        reqGetUserInfo()
+            .then(({data})=>{
+                if (data.code === 0){
+                    //获取成功
+                    dispatch(updateUserInfo(data.data))
+                } else {
+                    dispatch(resetUserInfo({errMsg:data.msg}))
+                }
+            })
+            .catch(err =>{
+                dispatch(resetUserInfo({errMsg:'网络不稳定,请刷新重试'}))
             })
     }
 }

@@ -33,7 +33,8 @@ class DashenInfo extends Component {
   render () {
         //重定向
       const {errMsg,redirectTo} =this.props.user;
-      if (redirectTo === '/dashen'){
+      console.log(redirectTo)
+      if (redirectTo === 'dashen'){
           return <Redirect to={redirectTo}/>
       }
     return (

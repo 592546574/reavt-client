@@ -34,7 +34,7 @@ class LaobanInfo extends Component {
   render () {
         //重定向
       const {errMsg,redirectTo} =this.props.user;
-      if (redirectTo === '/laoban'){
+      if (redirectTo === 'laoban'){
           return <Redirect to={redirectTo}/>
       }
     return (
