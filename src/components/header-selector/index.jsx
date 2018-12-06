@@ -26,7 +26,7 @@ class HeaderSelector extends Component {
   }));
     return (
             <List  renderHeader={() => {
-              return <div>请选择头像 <img src={header} /></div>
+              return <div>请选择头像 <img src={header}/></div>
             }}>
                 <Grid data={data}  columnNum={5} activeStyle={false} onClick={this.setHeader} />
             </List>

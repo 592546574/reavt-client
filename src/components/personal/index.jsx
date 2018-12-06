@@ -1,10 +1,22 @@
 import React, {Component} from 'react';
-import { List,Result,Button,WhiteSpace} from 'antd-mobile';
-
+import { List,Result,Button,WhiteSpace,Modal} from 'antd-mobile';
+import Cookie from 'js-cookie'
 const Item = List.Item;
 const Brief = Item.Brief;
-
+const alert = Modal.alert;
 class Personal extends Component {
+    logout =() =>{
+            alert('退出登陆', '确定要退出登陆吗', [
+                { text: '取消', onPress: () => {}},
+                { text: '确认', onPress: () => {
+                  //清除cookie
+                        Cookie.remove('userid');
+                        //清除redux管理数据
+                        //跳转到登陆页面
+                        this.props.history.replace('/login')
+                    }}
+            ])
+    }
   render () {
     return (
         <div>
@@ -23,7 +35,13 @@ class Personal extends Component {
                 </Item>
             </List>
             <WhiteSpace />
-            <Button type="warning">退出登陆</Button>
+            <Button
+                type="warning"
+                onClick={this.logout}
+            >
+                退出登陆
+            </Button>
+
         </div>
     )
   }
