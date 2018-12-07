@@ -7,7 +7,7 @@
       返回值是函数 dispatch => {xxx}
  */
 
-
+import io from 'socket.io-client';
 import {reqRegister,reqLogin,reqUpdate,reqGetUserInfo,reqGetUserList} from "../api";
 //引入
 import {
@@ -132,7 +132,7 @@ export const getUserInfo = () =>{
             })
     }
 }
-
+//获取用户消息列表
 export const getUserList = type =>{
     return dispatch =>{
         reqGetUserList(type)
@@ -147,5 +147,17 @@ export const getUserList = type =>{
             .catch(err =>{
                 dispatch(resetUserList())
             })
+    }
+}
+//保证和服务器得连接只连接一次
+const socket = io('ws://localhost:5000');
+socket.on('receiveMsg', function (data) {
+    console.log('浏览器端接收到服务器发送的消息:', data)
+})
+//定义发送接收消息
+export const sendMessage =({ message,from,to}) =>{
+    return dispatch =>{
+        socket.emit('sendMsg', {message,from,to})
+        console.log('浏览器端向服务器发送消息:',{message,from,to})
     }
 }

@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import { Card, WingBlank, WhiteSpace } from 'antd-mobile';
-import PropTypes from 'prop-types'
+import PropTypes from 'prop-types';
 class Laoban extends Component {
     static propTypes = {
         userList:PropTypes.array.isRequired,
@@ -12,6 +12,10 @@ class Laoban extends Component {
             this.props.getUserList('dashen')
         }
     }
+    goChat = id =>{
+
+        this.props.history.push(`/chat/${id}`);
+    }
   render () {
         //过滤获取信息不全的列表
       const userList = this.props.userList.filter(item => item.header)
@@ -22,8 +26,9 @@ class Laoban extends Component {
              {
                  userList.map((item,index) => {
                      return(
-                         <div key={index}>
-                             <Card>
+
+                         <div key={index} onClick={this.goChat.bind(null,item._id)}>
+                             <Card >
                                  <Card.Header
                                      thumb={require(`../../assets/images/头像${+item.header + 1}.png`)}
                                      extra={<span>{item.username}</span>}
