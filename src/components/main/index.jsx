@@ -17,7 +17,9 @@ import './index.less'
 class Main extends Component {
     static propTypes = {
         user:PropTypes.object.isRequired,
-        getUserInfo:PropTypes.func.isRequired
+        //chatMessages:PropTypes.object.isRequired,
+        getUserInfo:PropTypes.func.isRequired,
+        getChatList:PropTypes.func.isRequired
     }
     //获取当前的路由列表
     navList = [
@@ -26,6 +28,12 @@ class Main extends Component {
         {path:'/message',title:'消息列表',icon:'message',text:'消息'},
         {path:'/personal',title:'个人中心',icon:'personal',text:'个人'}
     ]
+
+    //请求关于所有此用户得消息
+    componentDidMount(){
+        //请求关于所有此用户得消息
+        this.props.getChatList();
+    }
 
 
   render () {

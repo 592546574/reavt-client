@@ -7,7 +7,10 @@ import {
     UPDATE_USER_INFO,
     RESET_USER_INFO,
     UPDATE_USER_LIST,
-    RESET_USER_LIST
+    RESET_USER_LIST,
+    GET_CHAT_MESSAGES,
+    RESET_CHAT_MESSAGES
+
 } from "./action-types";
 
 
@@ -55,6 +58,20 @@ function userList(previousState = initUserListState,action){
     }
 }
 
+const initChatMessageState ={
+    users:{},
+    chatMsgs:[]
+}
+function chatMessage(previousState = initChatMessageState,action){
+    switch (action.type){
+        case GET_CHAT_MESSAGES:
+            return action.data;
+        case RESET_CHAT_MESSAGES:
+            return initChatMessageState;
+        default:
+            return previousState;
+    }
+}
 function getRedirectPath(type,header) {
     let path = '';
     if (type === 'dashen'){
@@ -75,5 +92,6 @@ function getRedirectPath(type,header) {
 //默认暴露合并后的reducers函数
 export default combineReducers({
     user,
-    userList
+    userList,
+    chatMessage
 })
