@@ -8,9 +8,10 @@ import PropTypes from 'prop-types';
 import Footer from '../footer'
 import LaobanInfo from '../../containers/laoban-info';
 import DashenInfo from '../../containers/dashen-info';
-import Laoban from "../laoban";
+import Laoban from "../../containers/laoban";
+// import Dashen from '../../containers/dashen';
 import Message from "../message";
-import Personal from "../personal";
+import Personal from "../../containers/personal";
 import './index.less'
 class Main extends Component {
     static propTypes = {
@@ -57,13 +58,16 @@ class Main extends Component {
       const currNav = this.navList.find(item =>item.path === pathname);
     return (
       <div>
-          {currNav ? <NavBar>{currNav.title}</NavBar> : null}
-          <Route path="/laobaninfo" component={LaobanInfo}/>
-          <Route path="/dasheninfo" component={DashenInfo}/>
-          <Route path="/laoban" component={Laoban}/>
-          <Route path="/message" component={Message}/>
-          <Route path="/personal" component={Personal}/>
-          {currNav ? <Footer navList={this.navList}/> : null}
+          {currNav ? <NavBar className="nav-bar">{currNav.title}</NavBar> : null}
+          <div className="main-content">
+              <Route path="/laobaninfo" component={LaobanInfo}/>
+              <Route path="/dasheninfo" component={DashenInfo}/>
+              <Route path="/laoban" component={Laoban}/>
+              {/*<Route path="/dashen" component={Dashen}/>*/}
+              <Route path="/message" component={Message}/>
+              <Route path="/personal" component={Personal}/>
+          </div>
+          {currNav ? <Footer navList={this.navList} type={this.props.user.type}/> : null}
       </div>
     )
   }

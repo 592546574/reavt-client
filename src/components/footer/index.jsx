@@ -6,16 +6,16 @@ import './index.less'
 const Item = TabBar.Item;
 class Footer extends Component {
     static propTypes ={
-        navList:PropTypes.array.isRequired
+        navList:PropTypes.array.isRequired,
+        type:PropTypes.string.isRequired
     }
     redirectTo = (path) =>{
         this.props.history.push(path);
 }
   render () {
-      const type = 'laoban';
-      //过滤老板或大神的数据
-      const filter = type ===`laoban` ? `/dashen` : `/laoban`
-      //定义
+      //通过redux获取type
+      const filter = this.props.type ===`laoban` ? `/dashen` : `/laoban`
+      //定义//过滤老板或大神的数据
       const currNavList = this.props.navList.filter(item => filter === item.path ? false : true)
     return (
         <TabBar>

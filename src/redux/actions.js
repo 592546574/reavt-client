@@ -8,15 +8,26 @@
  */
 
 
-import {reqRegister,reqLogin,reqUpdate,reqGetUserInfo} from "../api";
+import {reqRegister,reqLogin,reqUpdate,reqGetUserInfo,reqGetUserList} from "../api";
 //引入
-import {AUTH_SUCCESS,AUTH_ERROR,UPDATE_USER_INFO,RESET_USER_INFO} from "./action-types";
+import {
+    AUTH_SUCCESS,
+    AUTH_ERROR,
+    UPDATE_USER_INFO,
+    RESET_USER_INFO,
+    UPDATE_USER_LIST,
+    RESET_USER_LIST,
+} from "./action-types";
 //定义同步action creator
 export const authSuccess = data =>({type:AUTH_SUCCESS,data});
 export const authError = data =>({type:AUTH_ERROR,data});
-//定义获取用户消息
+
 export const updateUserInfo = data =>({type:UPDATE_USER_INFO,data});
 export const resetUserInfo = data =>({type:RESET_USER_INFO,data});
+
+//定义获取用户消息
+export const updateUserList = data =>({type:UPDATE_USER_LIST,data});
+export const resetUserList = () =>({type:RESET_USER_LIST});
 //定义异步action creator
 export const register = ({username,password,rePassword,type}) =>{
     //表单验证
@@ -118,6 +129,23 @@ export const getUserInfo = () =>{
             })
             .catch(err =>{
                 dispatch(resetUserInfo({errMsg:'网络不稳定,请刷新重试'}))
+            })
+    }
+}
+
+export const getUserList = type =>{
+    return dispatch =>{
+        reqGetUserList(type)
+            .then(({data})=>{
+                if (data.code === 0){
+                    //获取成功
+                    dispatch(updateUserList(data.data))
+                } else {
+                    dispatch(resetUserList())
+                }
+            })
+            .catch(err =>{
+                dispatch(resetUserList())
             })
     }
 }

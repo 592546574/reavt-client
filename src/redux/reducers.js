@@ -1,7 +1,14 @@
 //包含多个用于生成新的state的reducer函数的模块
 import {combineReducers} from 'redux';
 
-import {AUTH_SUCCESS,AUTH_ERROR,UPDATE_USER_INFO,RESET_USER_INFO} from "./action-types";
+import {
+    AUTH_SUCCESS,
+    AUTH_ERROR,
+    UPDATE_USER_INFO,
+    RESET_USER_INFO,
+    UPDATE_USER_LIST,
+    RESET_USER_LIST
+} from "./action-types";
 
 
 //初始化状态的值
@@ -35,6 +42,19 @@ function user(previousState = initUserState,action){
     }
 }
 
+//初始化状态的值
+const initUserListState = [];
+function userList(previousState = initUserListState,action){
+    switch (action.type) {
+        case UPDATE_USER_LIST:
+            return action.data;
+        case RESET_USER_LIST:
+            return []
+        default:
+            return previousState
+    }
+}
+
 function getRedirectPath(type,header) {
     let path = '';
     if (type === 'dashen'){
@@ -50,16 +70,10 @@ function getRedirectPath(type,header) {
     console.log(path)
     return path;
 }
-//初始化状态的值
-// const initYyyState = 0;
-// function yyy(previousState = initYyyState,action){
-//     switch (action.type) {
-//         default:
-//             return previousState
-//     }
-// }
+
 
 //默认暴露合并后的reducers函数
 export default combineReducers({
-    user
+    user,
+    userList
 })
