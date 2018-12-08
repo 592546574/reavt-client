@@ -168,7 +168,7 @@ export const sendMessage =({ message,from,to}) =>{
         console.log('浏览器端向服务器发送消息:',{message,from,to})
     }
 }
-
+//定义消息列表
 export const getChatList = ()=>{
     return dispatch =>{
         reqGetChatList()
